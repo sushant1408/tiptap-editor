@@ -39,6 +39,43 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+## About this project
+
+### This project demos TipTap editor with following functionalities:
+- Headings (levels from 1 to 6)
+- Bold, Italic, Underline, Strike
+- Lists
+  - Numbered list
+  - Bulleted list
+  - Task list
+- Text alignment
+- Text color, highlight
+- Link
+- Undo + Redo
+- Code
+- Code-block
+- Block-quote
+- Superscript, Subscript
+- Clear formatting
+- Image (resize + align)
+- Banners (green, red, blue, yellow) (any color banner can be added)
+- '@' options (mention a team member)
+- '#' options (mention a document)
+- '/' options
+- Divider
+- Selected text bubble menu
+- Word count
+- TipTap Editor gives wide range of keyboard shortcuts
+- Support for markdown shortcuts
+
+### Coming Soon:
+- Collaboration support (Collaboration edit and cursors)
+- YouTube embeds
+- Possibly Vimeo, Loom, CloudApp, Figma embeds (by extending YouTube extension)
+- Code-block with syntax highlighting and multiple programming language support
+- Floating Menu
+- Tables (Cell, Header, Row)
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
