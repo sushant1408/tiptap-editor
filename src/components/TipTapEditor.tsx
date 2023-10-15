@@ -43,15 +43,13 @@ import QuickCommandMention from "./mentions/quick-commands/QuickCommandMention";
 import Banner from "./custom-extensions/Banner";
 import ResizableImage from "./custom-extensions/ResizableImage";
 import AIBubbleMenu from "./bubble-menus/AiBubbleMenu";
+import EditLinkModal from "./modals/EditLinkModal";
 
 interface TipTapEditorProps {}
 
 const TipTapEditor = ({}: TipTapEditorProps) => {
   const [content, setContent] = useState("");
-  const [url, setUrl] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const initialRef = useRef();
 
   const editor = useEditor({
     autofocus: true,
@@ -112,28 +110,29 @@ const TipTapEditor = ({}: TipTapEditorProps) => {
   });
   const isSmallScreen = useBreakpointValue({ base: true, md: false });
 
-  const saveLink = useCallback(() => {
-    if (!editor) return;
+  const saveLink = useCallback(
+    (url: string) => {
+      if (!editor) return;
 
-    if (url) {
-      editor
-        .chain()
-        .focus()
-        .extendMarkRange("link")
-        .setLink({ href: url, target: "_blank" })
-        .run();
-    } else {
-      editor.chain().focus().extendMarkRange("link").unsetLink().run();
-    }
-    onClose();
-  }, [editor, url]);
+      if (url) {
+        editor
+          .chain()
+          .focus()
+          .extendMarkRange("link")
+          .setLink({ href: url, target: "_blank" })
+          .run();
+      } else {
+        editor.chain().focus().extendMarkRange("link").unsetLink().run();
+      }
+      onClose();
+    },
+    [editor]
+  );
 
   const openModal = useCallback(() => {
     if (!editor) return;
-
-    setUrl(editor.getAttributes("link").href);
     onOpen();
-  }, [editor, setUrl, onOpen]);
+  }, [editor, onOpen]);
 
   const removeLink = useCallback(() => {
     if (!editor) return;
@@ -181,40 +180,13 @@ const TipTapEditor = ({}: TipTapEditorProps) => {
         </Flex>
       </Flex>
 
-      <Modal
-        // @ts-ignore
-        initialFocusRef={initialRef}
+      <EditLinkModal
         isOpen={isOpen}
         onClose={onClose}
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Edit Link</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <FormControl>
-              <Input
-                // @ts-ignore
-                ref={initialRef}
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                size="sm"
-              />
-            </FormControl>
-          </ModalBody>
-
-          <ModalFooter>
-            <ButtonGroup size="sm" alignSelf="end">
-              <Button variant="danger" onClick={removeLink}>
-                Remove
-              </Button>
-              <Button variant="solid" onClick={saveLink}>
-                Save
-              </Button>
-            </ButtonGroup>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+        intialValue={editor ? editor.getAttributes("link").href : ""}
+        onSaveLink={saveLink}
+        onRemoveLink={removeLink}
+      />
     </>
   );
 };
