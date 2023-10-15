@@ -1,8 +1,18 @@
 import { BiSolidTagAlt } from "react-icons/bi";
 import { CgFileDocument } from "react-icons/cg";
-import { FaDraftingCompass, FaImages, FaQuoteRight, FaRobot, FaUser } from "react-icons/fa";
-import { LuHeading1, LuHeading2, LuHeading3, LuHeading4, LuHeading5, LuHeading6 } from "react-icons/lu";
+import {
+  FaDraftingCompass,
+  FaImages,
+  FaListOl,
+  FaListUl,
+  FaQuoteRight,
+  FaRobot,
+  FaTable,
+  FaUser,
+} from "react-icons/fa";
+import { LuHeading1, LuHeading2, LuHeading3, LuHeading4 } from "react-icons/lu";
 import { RxDividerHorizontal } from "react-icons/rx";
+import { VscChecklist } from "react-icons/vsc";
 
 const items = [
   {
@@ -19,7 +29,7 @@ const items = [
         },
         parent_team: "ai-assist",
       },
-    ]
+    ],
   },
   {
     team_id: "popular",
@@ -52,8 +62,30 @@ const items = [
     team_title: "text",
     children: [
       {
+        id: "list-bulleted",
+        title: "Bulleted list",
+        description: "Create a simple bulleted list",
+        leftIcon: FaListUl,
+        parent_team: "text",
+      },
+      {
+        id: "list-numbered",
+        title: "Numbered list",
+        description: "Create a list with numbering",
+        leftIcon: FaListOl,
+        parent_team: "text",
+      },
+      {
+        id: "list-tasks",
+        title: "Tasks list",
+        description: "Track tasks with a task list",
+        leftIcon: VscChecklist,
+        parent_team: "text",
+      },
+      {
         id: "heading-1",
         title: "Heading 1",
+        description: "Big section heading",
         leftIcon: LuHeading1,
         extra: {
           level: 1,
@@ -63,6 +95,7 @@ const items = [
       {
         id: "heading-2",
         title: "Heading 2",
+        description: "Medium section heading",
         leftIcon: LuHeading2,
         extra: {
           level: 2,
@@ -72,6 +105,7 @@ const items = [
       {
         id: "heading-3",
         title: "Heading 3",
+        description: "Small section heading",
         leftIcon: LuHeading3,
         extra: {
           level: 3,
@@ -88,27 +122,9 @@ const items = [
         parent_team: "text",
       },
       {
-        id: "heading-5",
-        title: "Heading 5",
-        leftIcon: LuHeading5,
-        extra: {
-          level: 5,
-        },
-        parent_team: "text",
-      },
-      {
-        id: "heading-6",
-        title: "Heading 6",
-        leftIcon: LuHeading6,
-        extra: {
-          level: 6,
-        },
-        parent_team: "text",
-      },
-      {
         id: "blockquote",
-        title: "Add Quotation",
-        description: "Add a quote",
+        title: "Quote",
+        description: "Capture a quote",
         leftIcon: FaQuoteRight,
         parent_team: "text",
       },
@@ -187,7 +203,7 @@ const items = [
       {
         id: "doc-mention",
         title: "Mention a document",
-        description: "",
+        description: "Link to an existing document",
         leftIcon: CgFileDocument,
         parent_team: "inline",
       },
@@ -198,9 +214,16 @@ const items = [
     team_title: "advanced blocks",
     children: [
       {
+        id: "table",
+        title: "Table",
+        description: "Add a simple tabular content",
+        leftIcon: FaTable,
+        parent_team: "advanced-blocks",
+      },
+      {
         id: "divider",
         title: "Divider",
-        description: "Add a Divider",
+        description: "Visually divide blocks",
         leftIcon: RxDividerHorizontal,
         parent_team: "advanced-blocks",
       },

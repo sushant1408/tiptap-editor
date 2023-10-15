@@ -74,7 +74,9 @@ const TipTapEditor = ({}: TipTapEditorProps) => {
       TextStyle,
       Color,
       CharacterCount,
-      Table,
+      Table.configure({
+        resizable: true,
+      }),
       TableCell,
       TableHeader,
       TableRow,

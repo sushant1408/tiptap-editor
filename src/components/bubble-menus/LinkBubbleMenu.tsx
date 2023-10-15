@@ -17,17 +17,20 @@ const LinkBubbleMenu = ({ editor, onEditLink }: LinkBubbleMenuProps) => {
       }}
     >
       <Flex
-        bgColor="base_level_2"
-        p={2}
+        bgColor="base_level_3"
         borderRadius="lg"
         boxShadow="md"
+        p={2}
         direction="column"
+        maxW="370px"
+        w="300px"
       >
         <Text
           sx={{
             marginTop: "0 !important",
             marginBottom: "0.5rem !important"
           }}
+          noOfLines={2}
         >
           {editor.getAttributes("link").href}
         </Text>

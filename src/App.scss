@@ -1,0 +1,158 @@
+.tiptap.ProseMirror {
+  background-color: white;
+  outline: none;
+  min-height: 100vh;
+  color: black;
+}
+
+.tiptap {
+  .my-custom-class {
+    color: var(--chakra-colors-common-link_blue) !important;
+    text-decoration: underline !important;
+  }
+}
+
+// heading specific stylings
+.tiptap {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1 !important;
+  }
+
+  p {
+    margin: 0.8em 0 !important;
+  }
+}
+
+// lists specific stylings
+.tiptap {
+  ul[data-type="taskList"] {
+    list-style: none !important;
+    margin: 0.8em 0;
+    padding: 0 0 0 0.5em !important;
+
+    li {
+      display: flex;
+
+      label {
+        flex: 0 0 auto;
+        margin-right: 0.5em;
+        user-select: none;
+      }
+
+      div {
+        flex: 1 1 auto;
+
+        p {
+          margin: 0 !important;
+        }
+      }
+    }
+
+    li[data-checked="true"] {
+      div {
+        p {
+          text-decoration: line-through;
+        }
+      }
+    }
+
+    input[type="checkbox"] {
+      cursor: pointer !important;
+    }
+  }
+}
+
+// table specific styling
+.tiptap {
+  table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+
+    td,
+    th {
+      min-width: 1em;
+      border: 2px solid #ced4da;
+      padding: 3px 5px !important;
+      vertical-align: top;
+      box-sizing: border-box;
+      position: relative;
+
+      > * {
+        margin-bottom: 0;
+      }
+    }
+
+    th {
+      font-weight: bold;
+      text-align: left;
+      background-color: #f1f3f5;
+    }
+
+    .column-resize-handle {
+      background-color: #adf;
+      bottom: -2px;
+      position: absolute;
+      right: -2px;
+      pointer-events: none;
+      top: 0;
+      width: 4px;
+    }
+
+    p {
+      margin: 0 !important;
+    }
+  }
+}
+
+.resize-cursor {
+  cursor: ew-resize;
+  cursor: col-resize;
+}
+
+// mentions specific stylings
+.tiptap {
+  .member-mention {
+    background-color: var(--chakra-colors-common-dust);
+    border-radius: 4px;
+    padding: 0.125rem;
+  }
+
+  .doc-mention {
+    background-color: var(--chakra-colors-common-dust);
+    border-radius: 4px;
+    padding: 0.125rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.image-resizer {
+  display: inline-flex;
+  position: relative;
+  flex-grow: 0;
+}
+.image-resizer .resize-trigger {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+/*  */
+
+.ProseMirror-selectednode {
+  .image-resizer {
+    outline: 1px dashed black;
+  }
+
+  .resize-trigger {
+    opacity: 1;
+  }
+}

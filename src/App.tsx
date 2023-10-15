@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import TipTapEditor from "./components/TipTapEditor";
 import { Box, VStack } from "@chakra-ui/react";
 

@@ -185,7 +185,7 @@ const TipTapMenuBar = ({ editor, onEditLink }: TipTapMenuBarProps) => {
           <Divider orientation="vertical" h="30px" />
 
           <IconButton
-            aria-label="unordered-list"
+            aria-label="tasks-list"
             icon={<VscChecklist />}
             onClick={() => {
               editor.chain().focus().toggleTaskList().run();

@@ -51,6 +51,9 @@ const SlashMentionList = forwardRef((props, ref) => {
           })
           .run();
         break;
+      case "table":
+        editor.chain().focus().insertTable({ rows: 2, cols: 2, withHeaderRow: false }).run();
+        break;
       default:
         break;
     }
@@ -139,7 +142,7 @@ const SlashMentionList = forwardRef((props, ref) => {
         if (team?.children?.length === 0) {
           return null;
         }
-        
+
         return (
           <React.Fragment key={teamIndex}>
             <Text
