@@ -1,4 +1,4 @@
-# TipTap Editor
+# Tiptap Editor
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -41,7 +41,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## About this project
 
-### This project demos TipTap editor with following functionalities:
+### This project demos Tiptap editor with following functionalities:
 - Headings (levels from 1 to 6)
 - Bold, Italic, Underline, Strike
 - Lists
@@ -67,6 +67,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 - Word count
 - TipTap Editor gives wide range of keyboard shortcuts
 - Support for markdown shortcuts
+- Tables (basic setup with resizable columns)
 
 ### Coming Soon:
 - Collaboration support (Collaboration edit and cursors)
@@ -74,7 +75,6 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 - Possibly Vimeo, Loom, CloudApp, Figma embeds (by extending YouTube extension)
 - Code-block with syntax highlighting and multiple programming language support
 - Floating Menu
-- Tables (Cell, Header, Row)
 
 ## Learn More
 
@@ -82,4 +82,4 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-To learn TipTap editor, check out the [TipTap Editor documentation](https://tiptap.dev/introduction).
+To learn Tiptap editor, check out the [Tiptap Editor documentation](https://tiptap.dev/introduction).
