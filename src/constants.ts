@@ -78,3 +78,22 @@ export enum MentionChars {
 }
 
 export const inputRegex = /(!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\))$/;
+
+export const DOWNLOAD_OPTIONS = [
+  {
+    label: "HTML",
+    value: "html",
+  },
+  {
+    label: "JSON",
+    value: "json",
+  },
+  {
+    label: "DOCX",
+    value: "docx",
+  },
+  {
+    label: "PDF",
+    value: "pdf",
+  },
+];

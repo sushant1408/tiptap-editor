@@ -1,4 +1,9 @@
 import axios from "axios";
+import {
+  GET_DOCUMENTS_ENDPOINT,
+  GET_DOCUMENT_DETAILS_ENDPOINT,
+  GET_WORKSPACE_MEMBERS_ENDPOINT,
+} from "./endpoints";
 
 const defaultHeaders = (axios.defaults.headers.common = {
   Authorization: "Token ee19a18378fc8e9263328bc3b3f6319819f6aef6",
@@ -6,13 +11,22 @@ const defaultHeaders = (axios.defaults.headers.common = {
 });
 
 export const getWorkspaceMembers = () => {
-  return axios.get("https://api.simplified.com/api/v2/workspaces/698/members", {
+  const endpoint = new URL(GET_WORKSPACE_MEMBERS_ENDPOINT);
+  return axios.get(endpoint.href, {
     headers: defaultHeaders,
   });
 };
 
 export const getAIDocuments = () => {
-  return axios.get("https://api.simplified.com/api/v1/documents", {
+  const endpoint = new URL(GET_DOCUMENTS_ENDPOINT);
+  return axios.get(endpoint.href, {
+    headers: defaultHeaders,
+  });
+};
+
+export const getDocumentDetails = () => {
+  const endpoint = new URL(GET_DOCUMENT_DETAILS_ENDPOINT);
+  return axios.get(endpoint.href, {
     headers: defaultHeaders,
   });
 };

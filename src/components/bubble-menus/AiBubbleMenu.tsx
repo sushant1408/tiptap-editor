@@ -32,6 +32,10 @@ const AIBubbleMenu = ({ editor }: AIBubbleMenuProps) => {
   const { from, to } = view.state.selection;
   const selectedText = state.doc.textBetween(from, to, "");
 
+  if (!editor?.isEditable) {
+    return null;
+  }
+
   return (
     <BubbleMenu
       editor={editor}

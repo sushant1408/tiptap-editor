@@ -1,23 +1,7 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Flex,
-  FormControl,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  useBreakpointValue,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { useCallback, useEffect, useState } from "react";
+import { Box, Flex, useDisclosure } from "@chakra-ui/react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useCallback, useRef, useState } from "react";
 import TipTapMenuBar from "./TipTapMenuBar";
 import Underline from "@tiptap/extension-underline";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -44,71 +28,75 @@ import Banner from "./custom-extensions/Banner";
 import ResizableImage from "./custom-extensions/ResizableImage";
 import AIBubbleMenu from "./bubble-menus/AiBubbleMenu";
 import EditLinkModal from "./modals/EditLinkModal";
+import Navbar from "./Navbar";
+import { getDocumentDetails } from "../data-access";
+var QuillDeltaToHtmlConverter =
+  require("quill-delta-to-html").QuillDeltaToHtmlConverter;
 
-interface TipTapEditorProps {}
-
-const TipTapEditor = ({}: TipTapEditorProps) => {
+const TipTapEditor = () => {
   const [content, setContent] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const editor = useEditor({
-    autofocus: true,
-    editable: true,
-    extensions: [
-      StarterKit.configure({
-        bulletList: {
-          keepMarks: true,
-          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-        },
-        orderedList: {
-          keepMarks: true,
-          keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
-        },
-      }),
-      Underline,
-      TaskList,
-      Superscript,
-      Subscript,
-      TextStyle,
-      Color,
-      CharacterCount,
-      Table.configure({
-        resizable: true,
-      }),
-      TableCell,
-      TableHeader,
-      TableRow,
-      MemberMention,
-      DocumentMention,
-      QuickCommandMention,
-      Banner,
-      ResizableImage,
-      Link.configure({
-        openOnClick: false,
-        validate: (href) => /^https?:\/\//.test(href),
-        HTMLAttributes: {
-          class: "my-custom-class",
-        },
-      }),
-      Highlight.configure({
-        multicolor: true,
-      }),
-      TaskItem.configure({
-        nested: true,
-      }),
-      Placeholder.configure({
-        placeholder: "Hello World!!!",
-      }),
-      TextAlign.configure({
-        types: ["heading", "paragraph", "image-resizer"],
-      }),
-    ],
-    content: content,
-    onUpdate: ({ editor }) => {
-      setContent(editor.getHTML());
+  const editor = useEditor(
+    {
+      autofocus: true,
+      editable: false, // toggles between editable and read-only mode
+      extensions: [
+        StarterKit.configure({
+          bulletList: {
+            keepMarks: true,
+            keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+          },
+          orderedList: {
+            keepMarks: true,
+            keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
+          },
+        }),
+        Underline,
+        TaskList,
+        Superscript,
+        Subscript,
+        TextStyle,
+        Color,
+        CharacterCount,
+        Table.configure({
+          resizable: true,
+        }),
+        TableCell,
+        TableHeader,
+        TableRow,
+        MemberMention,
+        DocumentMention,
+        QuickCommandMention,
+        Banner,
+        ResizableImage,
+        Link.configure({
+          openOnClick: false,
+          validate: (href) => /^https?:\/\//.test(href),
+          HTMLAttributes: {
+            class: "my-custom-class",
+          },
+        }),
+        Highlight.configure({
+          multicolor: true,
+        }),
+        TaskItem.configure({
+          nested: true,
+        }),
+        Placeholder.configure({
+          placeholder: "Hello World!!!",
+        }),
+        TextAlign.configure({
+          types: ["heading", "paragraph", "image-resizer"],
+        }),
+      ],
+      content: content,
+      onUpdate: ({ editor }) => {
+        setContent(editor.getHTML());
+      },
     },
-  });
-  const isSmallScreen = useBreakpointValue({ base: true, md: false });
+    [content]
+  );
 
   const saveLink = useCallback(
     (url: string) => {
@@ -126,8 +114,25 @@ const TipTapEditor = ({}: TipTapEditorProps) => {
       }
       onClose();
     },
-    [editor]
+    [editor, onClose]
   );
+
+  const fetchDocumentDetails = useCallback(async () => {
+    try {
+      const response = await getDocumentDetails();
+
+      var deltaOps = response.data?.content?.ops;
+      var cfg = {};
+      var converter = new QuillDeltaToHtmlConverter(deltaOps, cfg);
+      var html = converter.convert();
+
+      setContent(html);
+    } catch (error) {}
+  }, []);
+
+  useEffect(() => {
+    fetchDocumentDetails();
+  }, []);
 
   const openModal = useCallback(() => {
     if (!editor) return;
@@ -144,9 +149,14 @@ const TipTapEditor = ({}: TipTapEditorProps) => {
   return (
     <>
       <Flex direction="column" flexGrow={1} w="full" maxW="full">
-        {editor && <TipTapMenuBar editor={editor} onEditLink={openModal} />}
-        {editor && <LinkBubbleMenu editor={editor} onEditLink={openModal} />}
-        {editor && <AIBubbleMenu editor={editor} />}
+        {editor && (
+          <>
+            <Navbar editor={editor} />
+            <TipTapMenuBar editor={editor} onEditLink={openModal} />
+            <LinkBubbleMenu editor={editor} onEditLink={openModal} />
+            <AIBubbleMenu editor={editor} />
+          </>
+        )}
 
         <Flex
           direction="row"
@@ -157,7 +167,7 @@ const TipTapEditor = ({}: TipTapEditorProps) => {
           w="full"
         >
           <Box
-            maxW={isSmallScreen ? "90vw" : "864px"}
+            maxW="864px"
             height="max-content"
             bg="white"
             w="full"
@@ -167,8 +177,8 @@ const TipTapEditor = ({}: TipTapEditorProps) => {
             p={["4", "4", "4", "16"]}
             borderRadius="md"
             mb={4}
-            mt={isSmallScreen ? 4 : 8}
-            mx={isSmallScreen ? 4 : 0}
+            mt={8}
+            mx={0}
             boxShadow="xl"
           >
             <Box pos="relative">

@@ -1,7 +1,6 @@
 import { extendTheme, ThemeConfig } from "@chakra-ui/react";
 import {
   mode,
-  createBreakpoints,
   SystemStyleFunction,
   StyleFunctionProps,
 } from "@chakra-ui/theme-tools";
@@ -261,14 +260,14 @@ const semanticTokens = {
   },
 };
 
-const breakpoints = createBreakpoints({
+const breakpoints = {
   xs: "0px",
   sm: "576px",
   md: "768px",
   lg: "960px",
   xl: "1200px",
   "2xl": "1536px",
-});
+};
 
 const buttonVariantPrimary = {
   background: "common.primary_400",
@@ -1942,9 +1941,7 @@ const fonts = {
 export const theme = extendTheme(
   {
     fonts,
-    colors: {
-      ...colors,
-    },
+    colors,
     breakpoints,
     components,
     styles,

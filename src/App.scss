@@ -156,3 +156,7 @@
     opacity: 1;
   }
 }
+
+[contenteditable="false"] {
+  cursor: not-allowed;
+}

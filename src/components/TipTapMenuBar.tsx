@@ -75,6 +75,7 @@ const TipTapMenuBar = ({ editor, onEditLink }: TipTapMenuBarProps) => {
           marginY: "0 !important",
         },
       }}
+      mt={2}
     >
       <Select<{ label: string; value: number }>
         options={HEADING_OPTIONS}
@@ -84,6 +85,10 @@ const TipTapMenuBar = ({ editor, onEditLink }: TipTapMenuBarProps) => {
           editor.chain().focus().toggleHeading({ level: selected.value }).run();
         }}
         chakraStyles={{
+          option: (provided: SystemStyleObject, state) => ({
+            ...provided,
+            color: state.isSelected ? "common.primary_400" : "inherit",
+          }),
           // @ts-ignore
           dropdownIndicator: (provided: SystemStyleObject) => ({
             ...provided,

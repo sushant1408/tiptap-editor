@@ -6,7 +6,6 @@ import { ReactRenderer } from "@tiptap/react";
 import tippy from "tippy.js";
 import React, {
   forwardRef,
-  useCallback,
   useEffect,
   useImperativeHandle,
   useState,
@@ -15,7 +14,7 @@ import { Button, Icon, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import items from "./QuickCommandItems";
 
 const SlashMentionList = forwardRef((props, ref) => {
-  const { items, command, editor } = props;
+  const { items, editor } = props;
   const [selectedTeamIndex, setSelectedTeamIndex] = useState(0);
   const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 
